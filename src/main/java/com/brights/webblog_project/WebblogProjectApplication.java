@@ -10,9 +10,4 @@ public class WebblogProjectApplication {
         SpringApplication.run(WebblogProjectApplication.class, args);
     }
 
-    //dva
-    //tri
-    //4
-
-//comment
 }
