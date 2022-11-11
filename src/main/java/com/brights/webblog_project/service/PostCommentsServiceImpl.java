@@ -1,27 +1,48 @@
 package com.brights.webblog_project.service;
 
 import com.brights.webblog_project.model.PostComment;
+import com.brights.webblog_project.repository.PostCommentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class PostCommentsServiceImpl implements PostCommentService{
+
+    @Autowired
+    private PostCommentRepository postCommentRepository;
     @Override
     public List<PostComment> getAllPostComments() {
-        return null;
+        return postCommentRepository.findAll();
     }
 
     @Override
     public void savePostComment(PostComment postComment) {
-
+        postCommentRepository.save(postComment);
     }
 
     @Override
     public PostComment getPostCommentById(long id) {
-        return null;
+        Optional<PostComment> optional = this.postCommentRepository.findById(id);
+        PostComment postComment = null;
+
+        if (optional.isPresent()) {
+            postComment = optional.get();
+        } else {
+            throw new IllegalStateException("Comment with id " + id + " was not found.");
+        }
+
+        return postComment;
     }
 
     @Override
     public void deletePostCommentById(long id) {
-
+        boolean exists = this.postCommentRepository.existsById(id);
+        if (!exists) {
+            throw new IllegalStateException("Post with id " + id + " was not found.");
+        }
+        this.postCommentRepository.deleteById(id);
     }
 }
