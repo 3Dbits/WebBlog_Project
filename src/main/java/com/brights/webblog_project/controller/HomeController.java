@@ -26,7 +26,7 @@ public class HomeController {
         this.postCommentService = postCommentService;
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String homepage(Model model) {
         model.addAttribute("postList", postService.getAllPosts());
         model.addAttribute("commentList", postCommentService.getAllPostComments());

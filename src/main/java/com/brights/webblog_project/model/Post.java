@@ -47,10 +47,9 @@ public class Post {
     private @Getter @Setter String content;
 
     @ManyToOne
-    @NotNull
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private @Getter @Setter User user;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private @Getter @Setter List<PostComment> postComment = new ArrayList<>();
 }

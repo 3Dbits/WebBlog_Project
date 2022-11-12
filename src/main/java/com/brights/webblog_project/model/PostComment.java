@@ -2,6 +2,7 @@ package com.brights.webblog_project.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,10 +20,11 @@ public class PostComment {
     private @Getter @Setter long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private @Getter @Setter User user;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private @Getter @Setter Date createdAt;
 
     @NotNull

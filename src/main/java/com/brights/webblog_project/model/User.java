@@ -29,6 +29,7 @@ public class User {
     @Size(min = 2, max = 50, message = "Last name should be between 2 and 50 letters" )
     private @Getter @Setter String lastName;
 
+    @NotNull
     @Email(message = "Email pattern it's not correct")
     @NotEmpty(message = "Email can't be empty")
     private @Getter @Setter String email;

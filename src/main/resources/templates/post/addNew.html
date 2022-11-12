@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Web Blog V&M</title>
 </head>
 <body>
+<h1>Web Blog V&M</h1>
+<h2>Save Post</h2>
+<form action="#" th:action="@{/post/new}" th:object="${post}" method="post">
+    <input type="text" th:field="*{title}" placeholder="Insert title">
+    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+    <input type="text" th:field="*{metaTitle}" placeholder="Insert meta title">
+    <p th:if="${#fields.hasErrors('metaTitle')}" th:errors="*{metaTitle}"></p>
+    <input type="text" th:field="*{summary}" placeholder="Insert summary">
+    <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>
+    <input type="checkbox" name="published" checked="checked">
+    <label>Publish?</label>
+    <input type="text" th:field="*{content}" placeholder="Insert content">
+    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+<!--    <input type="text" th:field="*{summary}" placeholder="Insert summary">
+    <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>
+    <input type="text" th:field="*{summary}" placeholder="Insert summary">
+    <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>-->
 
+    <!--    <input type="hidden" th:field="*{id}">-->
+    <button type="submit">Save Post</button>
+</form>
+<hr>
+<a th:href="@{/}">Back to Home</a>
 </body>
 </html>
