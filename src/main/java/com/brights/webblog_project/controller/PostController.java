@@ -42,7 +42,6 @@ public class PostController {
     @PostMapping("/post/new")
     public String postNewSave(@Valid @ModelAttribute Post post,
                                BindingResult bindingResult,
-                               Model model,
                                @RequestParam(required = false) boolean published) {
         if(bindingResult.hasErrors()){
             return "/post/addNew";
@@ -54,4 +53,13 @@ public class PostController {
 
         return "redirect:/";
     }
+
+//    /
+//    /post/{id}
+//    /comments/{id}
+//
+//    post
+//    nrenernernenr
+//            comments:
+//    new comment
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Web Blog V&M</title>
@@ -9,7 +10,13 @@
 </head>
 <body>
 <h1>Web Blog V&M</h1>
+<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<span sec:authorize="isAuthenticated()">
+            <a class="right">Welcome <span sec:authentication="">name?</span></a>
+        </span>
 <a th:href="@{/post/new}">Add Post</a>
+<a th:href="@{/register}">Register</a>
+<a th:href="@{/logout}">Log Out</a>
 <table>
     <thead>
     <th>Post Name</th>

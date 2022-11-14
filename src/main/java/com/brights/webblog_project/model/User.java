@@ -32,6 +32,7 @@ public class User {
     @NotNull
     @Email(message = "Email pattern it's not correct")
     @NotEmpty(message = "Email can't be empty")
+    @Column(unique = true)
     private @Getter @Setter String email;
 
     @OneToMany(mappedBy = "user")

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Blog V&M</title>
+</head>
+<body>
+<h1>Web Blog V&M</h1>
+<h2>Register:</h2>
+<form action="#" th:action="@{/user/register}" th:object="${people}"  method="post">
+    <input type="text" th:field="*{firstName}" placeholder="Insert first name">
+    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+    <input type="text" th:field="*{lastName}" placeholder="Insert last name">
+    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+    <input type="text" th:field="*{email}" placeholder="Insert email">
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        <div th:object="${newUserCred}">
+            <input type="text" th:field="*{username}" placeholder="username">
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            <input type="text" th:field="*{password}" placeholder="password">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        </div>
+    <button type="submit">Register</button>
+</form>
+<hr>
+<a th:href="@{/}">Back to Home</a>
+</body>
+</html>

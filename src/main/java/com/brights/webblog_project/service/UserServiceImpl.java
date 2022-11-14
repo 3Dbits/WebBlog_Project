@@ -5,6 +5,7 @@ import com.brights.webblog_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +21,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void saveUsers(User user) {
-        userRepository.save(user);
+    public User saveUsers(User user) {
+        return userRepository.save(user);
     }
 
     @Override
@@ -42,4 +43,5 @@ public class UserServiceImpl implements UserService{
     public void deleteUserById(long id) {
 
     }
+
 }

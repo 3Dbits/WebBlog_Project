@@ -7,8 +7,7 @@ import java.util.List;
 
 public interface UserCredentialsService {
 
-    List<UserCredentials> getAllUserCredentials();
-    void saveUserCredentials(UserCredentials userCredentials);
-    UserCredentials getUserCredentialsById(long id);
-    void deleteUserCredentialsById(long id);
+    UserCredentials saveUserCredentials(UserCredentials userCredentials);
+    UserCredentials getDetails(String username);
+    String getUserCredentialsRoles(String username);
 }

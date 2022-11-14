@@ -15,35 +15,19 @@ public class UserCredentialsServiceImpl implements UserCredentialsService{
     private UserCredentialsRepository userCredentialsRepository;
 
     @Override
-    public List<UserCredentials> getAllUserCredentials() {
-        return userCredentialsRepository.findAll();
+    public UserCredentials saveUserCredentials(UserCredentials userCredentials) {
+        return userCredentialsRepository.save(userCredentials);
     }
 
     @Override
-    public void saveUserCredentials(UserCredentials userCredentials) {
-        userCredentialsRepository.save(userCredentials);
+    public UserCredentials getDetails(String username) {
+        return userCredentialsRepository.findByusername(username);
     }
 
     @Override
-    public UserCredentials getUserCredentialsById(long id) {
-        Optional<UserCredentials> optional = this.userCredentialsRepository.findById(id);
-        UserCredentials userCredentials = null;
-
-        if (optional.isPresent()) {
-            userCredentials = optional.get();
-        } else {
-            throw new IllegalStateException("User credentials with id " + id + " was not found.");
-        }
-
-        return userCredentials;
+    public String getUserCredentialsRoles(String username) {
+        return userCredentialsRepository.findByusername(username).getRoles();
     }
 
-    @Override
-    public void deleteUserCredentialsById(long id) {
-        boolean exists = this.userCredentialsRepository.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("User credentials with id " + id + " was not found.");
-        }
-        this.userCredentialsRepository.deleteById(id);
-    }
+
 }
