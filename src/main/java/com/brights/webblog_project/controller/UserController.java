@@ -9,9 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 @Controller
@@ -54,6 +53,36 @@ public class UserController {
 
     @GetMapping("/users")
     public String userList(Model model){
-        return "/listUsers";
+        model.addAttribute("userList", userService.getAllUsers());
+        model.addAttribute("userCredList", userCredentialsService.getAllUserCred());
+
+        return "/user/listUsers";
+    }
+
+    @GetMapping("/users/{id}")
+    public String userUpdateForm(Model model, @PathVariable(value = "id") long id){
+        model.addAttribute("user", userCredentialsService.getDetailsById(id).getUser());
+        model.addAttribute("userCred", userCredentialsService.getDetailsById(id));
+
+        return "/user/updateUser";
+    }
+
+    @PostMapping("/users/update")
+    public String userUpdate(@Valid @ModelAttribute UserCredentials userCredentials,
+                             BindingResult bindingCred,
+                             @Valid @ModelAttribute User user,
+                             BindingResult bindingUser) {
+        if(bindingUser.hasErrors() || bindingCred.hasErrors()){
+            return "/user/updateUser";
+        }
+
+        try {
+            userService.saveUsers(user);
+            userCredentialsService.saveUserCredentials(userCredentials);
+        } catch (Exception e) {
+            return "/user/updateUser";
+//            System.err.print("");
+        }
+        return "redirect:/users";
     }
 }

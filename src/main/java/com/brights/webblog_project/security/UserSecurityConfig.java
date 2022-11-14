@@ -28,6 +28,7 @@ public class UserSecurityConfig {
                 .authorizeHttpRequests()
 //                .antMatchers("/").permitAll()
                 .antMatchers("/post/**").hasRole("ADMIN")
+                .antMatchers("/users/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
                     .defaultSuccessUrl("/")

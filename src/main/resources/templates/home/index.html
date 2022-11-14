@@ -14,9 +14,10 @@
 <span sec:authorize="isAuthenticated()">
             <a class="right">Welcome <span sec:authentication="">name?</span></a>
         </span>
-<a th:href="@{/post/new}">Add Post</a>
-<a th:href="@{/register}">Register</a>
-<a th:href="@{/logout}">Log Out</a>
+<a th:href="@{/post/new}">Add Post</a> <br>
+<a th:href="@{/user/register}">Register</a> <br>
+<a th:href="@{/users}">List of Users</a> <br>
+<a th:href="@{/logout}">Log Out</a> <br>
 <table>
     <thead>
     <th>Post Name</th>

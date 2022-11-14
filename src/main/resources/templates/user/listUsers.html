@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List of Users</title>
+    <style>table{width:800px; border: 1px solid black;}
+    th{border: 1px solid black;}
+    </style>
 </head>
 <body>
-
+<h1>Web Blog V&M</h1>
+<table>
+    <thead>
+    <th>User Id</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Active</th>
+    <th>Role</th>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:each="userCred : ${userCredList}">
+                <span th:if="${userCred.user.id == user.id}">
+                    <span th:if="${userCred.enabled == 0}">No</span>
+                    <span th:unless="${userCred.enabled == 0}">Yes</span>
+                </span>
+        </td>
+        <td th:each="userCred : ${userCredList}">
+                <span th:if="${userCred.user.id == user.id}">
+                    <span th:text="${userCred.roles}"></span>
+                </span>
+        </td>
+        <td>
+        <span th:each="userCred : ${userCredList}">
+                <span th:if="${userCred.user.id == user.id}">
+                    <a th:href="@{/users/{userCred}(userCred=${userCred.getId()})}">Update</a>
+                </span>
+        </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<a th:href="@{/}">Back to Home</a>
 </body>
 </html>

@@ -9,5 +9,8 @@ public interface UserCredentialsService {
 
     UserCredentials saveUserCredentials(UserCredentials userCredentials);
     UserCredentials getDetails(String username);
+    UserCredentials getDetailsById(long id);
     String getUserCredentialsRoles(String username);
+    List<UserCredentials> getAllUserCred();
+
 }
