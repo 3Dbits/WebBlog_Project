@@ -32,7 +32,7 @@ public class PostComment {
     private @Getter @Setter String content;
 
     @ManyToOne
-    @NotNull
+    /*@NotNull*/
     @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private @Getter @Setter Post post;
 }

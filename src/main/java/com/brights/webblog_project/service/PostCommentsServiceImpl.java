@@ -1,7 +1,9 @@
 package com.brights.webblog_project.service;
 
+import com.brights.webblog_project.model.Post;
 import com.brights.webblog_project.model.PostComment;
 import com.brights.webblog_project.repository.PostCommentRepository;
+import com.brights.webblog_project.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ public class PostCommentsServiceImpl implements PostCommentService{
 
     @Autowired
     private PostCommentRepository postCommentRepository;
+    @Autowired
+    private PostRepository postRepository;
     @Override
     public List<PostComment> getAllPostComments() {
         return postCommentRepository.findAll();
@@ -44,5 +48,19 @@ public class PostCommentsServiceImpl implements PostCommentService{
             throw new IllegalStateException("Post with id " + id + " was not found.");
         }
         this.postCommentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PostComment> getAllPostCommentsByPostId(long id) {
+        Optional<Post> optional = this.postRepository.findById(id);
+        Post post = null;
+
+        if (optional.isPresent()) {
+            post = optional.get();
+        } else {
+            throw new IllegalStateException("Post with id " + id + " was not found.");
+        }
+        return postCommentRepository.findByPost(post);
+
     }
 }

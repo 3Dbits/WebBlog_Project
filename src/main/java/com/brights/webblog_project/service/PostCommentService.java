@@ -11,4 +11,5 @@ public interface PostCommentService {
     void savePostComment(PostComment postComment);
     PostComment getPostCommentById(long id);
     void deletePostCommentById(long id);
+    List<PostComment> getAllPostCommentsByPostId(long id);
 }
