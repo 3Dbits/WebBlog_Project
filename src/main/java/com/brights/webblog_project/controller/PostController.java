@@ -51,14 +51,15 @@ public class PostController {
                               BindingResult bindingResult,
                               Model model,
                               @RequestParam(required = false) boolean published,
-                              @RequestParam(value = "image", required = false) MultipartFile file) throws IOException {
+                              @RequestParam(value = "image", required = false) MultipartFile file,
+                              Principal principal) throws IOException {
         if(bindingResult.hasErrors()){
             return "/post/addNew";
         }
         if (post.getPublishedAt() == null) {
             post.setPublishedAt(LocalDate.now());
         }
-        if (file != null) {
+        if (!file.isEmpty()) {
             StringBuilder fileNames = new StringBuilder();
             Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
             fileNames.append(file.getOriginalFilename());
@@ -66,6 +67,7 @@ public class PostController {
             post.setPathOfPicture("/uploads/" + file.getOriginalFilename());
         }
         post.setPublished(published);
+        post.setUser(userService.getUserById(userCredentialsService.getDetails(principal.getName()).getId()));
 
         postService.savePost(post);
 

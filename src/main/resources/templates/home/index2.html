@@ -11,26 +11,33 @@
   <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
   <link rel="stylesheet" type="text/css" href="../css/forum.css">
 </head>
-<body>
-<nav class="navbar is-white topNav">
+<body style="background-color: rgb(230, 238, 255);">
+<nav class="navbar is-white topNav" style="background-color: rgb(204, 221, 255);">
   <div class="container">
-    <div class="navbar-brand">
-<!--      <a class="navbar-item" href="../">-->
-<!--        <img src="../images/bulma.png" width="112" height="28">-->
-<!--      </a>-->
-      <div class="navbar-burger burger" data-target="topNav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
+<!--    <div class="navbar-brand">-->
+<!--&lt;!&ndash;      <a class="navbar-item" href="../">&ndash;&gt;-->
+<!--&lt;!&ndash;        <img src="../images/bulma.png" width="112" height="28">&ndash;&gt;-->
+<!--&lt;!&ndash;      </a>&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="navbar-burger burger" data-target="topNav">&ndash;&gt;-->
+<!--&lt;!&ndash;        <span></span>&ndash;&gt;-->
+<!--&lt;!&ndash;        <span></span>&ndash;&gt;-->
+<!--&lt;!&ndash;        <span></span>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    </div>-->
     <div id="topNav" class="navbar-menu">
       <div class="navbar-start">
+        <span>
         <a class="navbar-item" th:href="@{/}">Home</a>
+          </span>
+        <span sec:authorize="hasRole('ROLE_ADMIN')">
         <a class="navbar-item" th:href="@{/users}">Users</a>
+          </span>
+        <span sec:authorize="hasRole('ROLE_ADMIN')">
         <a class="navbar-item" th:href="@{/posts}">Control</a>
+          </span>
       </div>
       <div class="navbar-end">
+        <span sec:authorize="!isAuthenticated()">
         <div class="navbar-item">
           <div class="field is-grouped">
             <p class="control">
@@ -53,6 +60,31 @@
             </p>
           </div>
         </div>
+          </span>
+        <span sec:authorize="isAuthenticated()">
+          <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-small is-responsive">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>
+											Welcome <span sec:authentication="name">name?</span>
+										</span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-info is-outlined is-responsive" th:href="@{/logout}">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>Logout</span>
+              </a>
+            </p>
+          </div>
+        </div>
+        </span>
       </div>
     </div>
   </div>
@@ -61,13 +93,15 @@
 <section class="container">
   <div class="columns">
     <div class="column is-2">
+      <span sec:authorize="isAuthenticated()">
       <a class="button is-primary is-block is-alt is-small is-responsive" href="/post/new">New Post</a>
+        </span>
     </div>
     <div class="column is-9">
       <div class="box content">
         <span th:each="post : ${postList}">
           <article class="post">
-            <h4 th:text="${post.title}+': '+${post.summary}"></h4>
+            <h4><a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}+': '+${post.summary}"></a></h4>
             <div class="media">
               <span th:unless="${post.pathOfPicture == null}">
               <div class="media-left">
@@ -79,13 +113,12 @@
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <a href="#">admin</a> replied 34 minutes ago &nbsp;
-<!--                    <span class="tag">Question</span>-->
+                    <a href="/" th:text="${post.user.getFirstName()+' '+post.user.getLastName()}"></a> published this on <span th:text="${post.publishedAt}"></span> &nbsp;
                   </p>
                 </div>
               </div>
               <div class="media-right">
-                <span class="has-text-grey-light"><i class="fa fa-comments"></i> 1</span>
+                <span class="has-text-grey-light"><i class="fa fa-comments"></i> <span th:text="${post.postComment.size()}"></span></span>
               </div>
             </div>
           </article> <br>
@@ -94,7 +127,8 @@
     </div>
   </div>
 </section>
-<footer class="footer">
+<br>
+<footer class="footer" style="background-color: rgb(204, 221, 255);">
   <div class="container">
     <div class="content has-text-centered">
       <div class="columns is-mobile is-centered">

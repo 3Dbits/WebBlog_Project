@@ -1,10 +1,90 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Please sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/forum.css">
 </head>
-<body>
-TEsttt
-</body>
-</html>
+<body style="background-color: rgb(230, 238, 255);">
+<nav class="navbar is-white topNav" style="background-color: rgb(204, 221, 255);">
+    <div class="container">
+        <div class="navbar-brand">
+            <div class="navbar-burger burger" data-target="topNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div id="topNav" class="navbar-menu">
+            <div class="navbar-start">
+        <a class="navbar-item" th:href="@{/}">Home</a>
+            </div>
+            <div class="navbar-end">
+            </div>
+        </div>
+    </div>
+</nav>
+<br><br><br><br><br><br>
+<div class="container is-fullheight">
+    <div class="columns is-centered">
+    <div class="column is-5-desktop" >
+
+    <form class="box" method="post" action="/login">
+        <div class="content is-medium">
+            <h1>Sign in</h1>
+            </div>
+        <div class="box" th:if="${param.error}">
+            <p class="alert-red">Invalid username and/or password</p>
+        </div>
+        <div th:if="${param.logout}">
+            <p class="alert-green"> You have been successfully logged out</p>
+        </div>
+<!--        <h2 class="form-signin-heading">Please sign in</h2>-->
+        <label for="username" class="label">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        </p>
+        <p>
+            <label for="password" class="label">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </p>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+    </div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<footer class="footer" style="background-color: rgb(204, 221, 255);">
+    <div class="container">
+        <div class="content has-text-centered">
+            <div class="columns is-mobile is-centered">
+                <div class="field is-grouped is-grouped-multiline">
+                    <div class="control">
+                        <div class="tags has-addons">
+                            <a class="tag is-link" href="http://localhost:8080/">Web Blog M&C</a>
+                            <span class="tag is-light">Valerija & Matija</span>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="tags has-addons">
+                            <a class="tag is-link" href="https://github.com/3Dbits/WebBlog_Project">Read more:</a>
+                            <span class="tag is-light">Source code &nbsp;<i class="fa fa-github"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script async type="text/javascript" src="../js/bulma.js"></script>
+</body></html>
