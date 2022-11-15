@@ -16,10 +16,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserSecurityConfig {
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/", "/register");
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring().antMatchers("/", "/register");
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -27,13 +27,16 @@ public class UserSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
 //                .antMatchers("/").permitAll()
+//                .authorizeRequests()
                 .antMatchers("/post/**").hasRole("ADMIN")
+                .antMatchers("/post/new").hasRole("ADMIN")
                 .antMatchers("/users/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                     .defaultSuccessUrl("/")
-                    .passwordParameter("password")
-                    .usernameParameter("username")
+//                    .passwordParameter("password")
+//                    .usernameParameter("username")
                 .and()
                 .logout()
                     .logoutSuccessUrl("/login");

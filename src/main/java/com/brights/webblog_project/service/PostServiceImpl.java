@@ -5,8 +5,9 @@ import com.brights.webblog_project.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -15,8 +16,25 @@ public class PostServiceImpl implements PostService{
     private PostRepository postRepository;
 
     @Override
+    public List<Post> getAllPostsForIndexPage() {
+        return postRepository.findAll().stream()
+                .filter(Post::isPublished)
+                .filter(date -> date.getPublishedAt().isBefore(LocalDate.now().plusDays(1)))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    @Override
+    public List<Post> getAllPostsReverseForIndexPage() {
+        return postRepository.findAll().stream()
+                .filter(Post::isPublished)
+                .filter(date -> date.getPublishedAt().isBefore(LocalDate.now().plusDays(1)))
+                .sorted(Comparator.comparing(Post::getId).reversed())
+                .collect(Collectors.toList());
     }
 
     @Override

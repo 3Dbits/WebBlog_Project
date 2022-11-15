@@ -28,9 +28,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String homepage(Model model) {
-        model.addAttribute("postList", postService.getAllPosts());
+        model.addAttribute("postList", postService.getAllPostsReverseForIndexPage());
         model.addAttribute("commentList", postCommentService.getAllPostComments());
 
-        return "/home/index";
+        return "/home/index2";
     }
 }

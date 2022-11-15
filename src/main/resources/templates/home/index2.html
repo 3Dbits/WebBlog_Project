@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Blog V&M</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <link rel="stylesheet" type="text/css" href="../css/forum.css">
+</head>
+<body>
+<nav class="navbar is-white topNav">
+  <div class="container">
+    <div class="navbar-brand">
+<!--      <a class="navbar-item" href="../">-->
+<!--        <img src="../images/bulma.png" width="112" height="28">-->
+<!--      </a>-->
+      <div class="navbar-burger burger" data-target="topNav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div id="topNav" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" th:href="@{/}">Home</a>
+        <a class="navbar-item" th:href="@{/users}">Users</a>
+        <a class="navbar-item" th:href="@{/posts}">Control</a>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-small is-responsive" th:href="@{/user/register}">
+										<span class="icon">
+											<i class="fa fa-user-plus"></i>
+										</span>
+                <span>
+											Register
+										</span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-info is-outlined is-responsive" th:href="@{/login}">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>Login</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<br>
+<section class="container">
+  <div class="columns">
+    <div class="column is-2">
+      <a class="button is-primary is-block is-alt is-small is-responsive" href="/post/new">New Post</a>
+    </div>
+    <div class="column is-9">
+      <div class="box content">
+        <span th:each="post : ${postList}">
+          <article class="post">
+            <h4 th:text="${post.title}+': '+${post.summary}"></h4>
+            <div class="media">
+              <span th:unless="${post.pathOfPicture == null}">
+              <div class="media-left">
+                <p class="image is-32x32">
+                  <img th:src="@{${post.pathOfPicture}}"/>
+                </p>
+              </div>
+                </span>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <a href="#">admin</a> replied 34 minutes ago &nbsp;
+<!--                    <span class="tag">Question</span>-->
+                  </p>
+                </div>
+              </div>
+              <div class="media-right">
+                <span class="has-text-grey-light"><i class="fa fa-comments"></i> 1</span>
+              </div>
+            </div>
+          </article> <br>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <div class="columns is-mobile is-centered">
+        <div class="field is-grouped is-grouped-multiline">
+          <div class="control">
+            <div class="tags has-addons">
+              <a class="tag is-link" href="http://localhost:8080/">Web Blog M&C</a>
+              <span class="tag is-light">Valerija & Matija</span>
+            </div>
+          </div>
+          <div class="control">
+            <div class="tags has-addons">
+              <a class="tag is-link" href="https://github.com/3Dbits/WebBlog_Project">Read more:</a>
+              <span class="tag is-light">Source code &nbsp;<i class="fa fa-github"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script async type="text/javascript" src="../js/bulma.js"></script>
+</body>
+</html>

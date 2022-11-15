@@ -24,15 +24,19 @@
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.email}"></td>
-        <td th:each="userCred : ${userCredList}">
+        <td>
+            <span th:each="userCred : ${userCredList}">
                 <span th:if="${userCred.user.id == user.id}">
                     <span th:if="${userCred.enabled == 0}">No</span>
                     <span th:unless="${userCred.enabled == 0}">Yes</span>
                 </span>
+                </span>
         </td>
-        <td th:each="userCred : ${userCredList}">
+        <td>
+            <span th:each="userCred : ${userCredList}">
                 <span th:if="${userCred.user.id == user.id}">
                     <span th:text="${userCred.roles}"></span>
+                </span>
                 </span>
         </td>
         <td>

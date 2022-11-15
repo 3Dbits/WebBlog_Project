@@ -7,23 +7,21 @@
 <body>
 <h1>Web Blog V&M</h1>
 <h2>Save Post</h2>
-<form action="#" th:action="@{/post/new}" th:object="${post}" method="post">
-    <input type="text" th:field="*{title}" placeholder="Insert title">
+<form action="#" th:action="@{/post/new}" th:object="${post}" enctype="multipart/form-data" method="post">
+    <input type="text" th:field="*{title}" placeholder="Insert title" required>
     <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
-    <input type="text" th:field="*{metaTitle}" placeholder="Insert meta title">
+    <input type="text" th:field="*{metaTitle}" placeholder="Insert meta title" required>
     <p th:if="${#fields.hasErrors('metaTitle')}" th:errors="*{metaTitle}"></p>
-    <input type="text" th:field="*{summary}" placeholder="Insert summary">
+    <input type="text" th:field="*{summary}" placeholder="Insert summary" required>
     <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>
     <input type="checkbox" name="published" checked="checked">
     <label>Publish?</label>
+    <input type="date" th:field="*{publishedAt}" >
+    <p th:if="${#fields.hasErrors('publishedAt')}" th:errors="*{publishedAt}"></p>
     <input type="text" th:field="*{content}" placeholder="Insert content">
     <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
-<!--    <input type="text" th:field="*{summary}" placeholder="Insert summary">
-    <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>
-    <input type="text" th:field="*{summary}" placeholder="Insert summary">
-    <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>-->
+    <input type="file" name="image" accept="image/*" class="form-control-file">
 
-    <!--    <input type="hidden" th:field="*{id}">-->
     <button type="submit">Save Post</button>
 </form>
 <hr>
