@@ -49,5 +49,10 @@ public class UserCredentialsServiceImpl implements UserCredentialsService{
         return userCredentialsRepository.findAll();
     }
 
+    @Override
+    public UserCredentials GetByUser(User user) {
+        return userCredentialsRepository.findByuser(user);
+    }
+
 
 }

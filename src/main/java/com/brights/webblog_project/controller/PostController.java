@@ -2,6 +2,7 @@ package com.brights.webblog_project.controller;
 
 import com.brights.webblog_project.model.Post;
 import com.brights.webblog_project.model.PostComment;
+import com.brights.webblog_project.model.User;
 import com.brights.webblog_project.service.PostCommentService;
 import com.brights.webblog_project.service.PostService;
 import com.brights.webblog_project.service.UserCredentialsService;
@@ -65,6 +66,7 @@ public class PostController {
             post.setPathOfPicture("/uploads/" + file.getOriginalFilename());
         }
         post.setPublished(published);
+
         postService.savePost(post);
 
         return "redirect:/";
@@ -110,6 +112,60 @@ public class PostController {
         model.addAttribute("post", postService.getPostById(id));
         model.addAttribute("postComment", postCommentService.getAllPostCommentsByPostId(id));
         return "/post/postView";
+    }
+
+
+/////////// reg user brisanje svojih commentara
+@GetMapping("/showFormForDelete/{id}")
+public String deleteComment(@Valid @ModelAttribute PostComment postComment,
+                            BindingResult bindingComment,
+                            Principal principal ){
+
+    if ( principal.getName()==null ||
+            ( userCredentialsService.getUserCredentialsRoles(principal.getName()).equals("ROLE_USER")) &&
+            !principal.getName().equals(userCredentialsService.GetByUser(postComment.getUser()))) {
+        System.err.println("Forbidden role , not able to delete");
+        return "redirect:/";
+
+    }
+     else {
+         long number = postCommentService.getPostCommentById(postComment.getId()).getPost().getId();
+         postCommentService.deletePostCommentById(postComment.getId());
+        return "redirect:/post/"  + number;
+    }
+}
+
+
+////Update Post
+
+
+    @GetMapping("/updatePost/{id}")
+    public String updateNewForm(Model model,
+                                @PathVariable(value="id") long id) {
+        model.addAttribute("post", postService.getPostById(id));
+
+        return "/post/updatePost";
+    }
+
+
+    @PostMapping("/updatePost/{id}")
+    public String updatePost(/*@Valid*/ @ModelAttribute Post post,
+                             BindingResult bindingResult,
+                             Model model,
+                            @PathVariable(value="id") long id)  {
+        if(bindingResult.hasErrors()){
+
+            return "/post/updatePost";
+        }
+        Post postOld = postService.getPostById(id);
+        postOld.setTitle(post.getTitle());
+        postOld.setMetaTitle(post.getMetaTitle());
+        postOld.setSummary(post.getSummary());
+        postOld.setPublished(post.isPublished());
+        postOld.setContent(post.getContent());
+        postService.savePost(postOld);
+
+        return "redirect:/";
     }
 
 
