@@ -20,11 +20,11 @@ public class Post {
     private @Getter @Setter long id;
 
     @NotNull
-    @Size(min = 2, max = 50, message = "Title should be between 2 and 250 letters")
+    @Size(min = 2, max = 50, message = "Title should be between 2 and 50 letters")
     private @Getter @Setter String title;
 
     @NotNull
-    @Size(min = 2, max = 50, message = "MetaTitle should be between 2 and 250 letters")
+    @Size(min = 2, max = 50, message = "MetaTitle should be between 2 and 50 letters")
     private @Getter @Setter String metaTitle;
 
     @NotNull
