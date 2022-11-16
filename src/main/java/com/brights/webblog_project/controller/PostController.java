@@ -2,7 +2,6 @@ package com.brights.webblog_project.controller;
 
 import com.brights.webblog_project.model.Post;
 import com.brights.webblog_project.model.PostComment;
-import com.brights.webblog_project.model.User;
 import com.brights.webblog_project.service.PostCommentService;
 import com.brights.webblog_project.service.PostService;
 import com.brights.webblog_project.service.UserCredentialsService;
@@ -43,7 +42,7 @@ public class PostController {
     public String postNewForm(Model model) {
         model.addAttribute("post", new Post());
 
-        return "/post/addNew";
+        return "addNew2";
     }
 
     @PostMapping("/post/new")
@@ -53,12 +52,12 @@ public class PostController {
                               @RequestParam(required = false) boolean published,
                               @RequestParam(value = "image", required = false) MultipartFile file) throws IOException {
         if(bindingResult.hasErrors()){
-            return "/post/addNew";
+            return "addNew2";
         }
         if (post.getPublishedAt() == null) {
             post.setPublishedAt(LocalDate.now());
         }
-        if (file != null) {
+        if (!file.isEmpty()) {
             StringBuilder fileNames = new StringBuilder();
             Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
             fileNames.append(file.getOriginalFilename());
