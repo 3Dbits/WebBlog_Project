@@ -1,31 +1,92 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bulma.css}"/>
+    <title>Web Blog V&M </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>List of Users</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/forum.css">
 </head>
 <body style="background-color: rgb(230, 238, 255);">
-<nav class="navbar is-white topNav" style="background-color: rgb(204, 221, 255);">
+<nav class="navbar is-white topNav" style="background-color: rgb(232, 248, 245);">
     <div class="container">
-        <div class="navbar-brand">
-            <div class="navbar-burger burger" data-target="topNav">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <div class="container">
+            <div id="topNav" class="navbar-menu">
+                <div class="navbar-start">
+                    <div class="media-left">
+                        <p class="image is-84x84 navbar-item">
+                            <img th:src="@{/logo/logo.png}"/>
+                        </p>
+                    </div>
+                    <span>
+        <a class="navbar-item" th:href="@{/}">Home</a>
+          </span>
+                    <span sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="navbar-item" th:href="@{/users}">Users</a>
+          </span>
+                    <span sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="navbar-item" th:href="@{/posts}">Control</a>
+          </span>
+                </div>
+                <div class="navbar-end">
+        <span sec:authorize="!isAuthenticated()">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-small is-responsive" th:href="@{/user/register}">
+										<span class="icon">
+											<i class="fa fa-user-plus"></i>
+										</span>
+                <span>
+											Register
+										</span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-info is-outlined is-responsive" th:href="@{/login}">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>Login</span>
+              </a>
+            </p>
+          </div>
         </div>
-        <div id="topNav" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item" th:href="@{/}">Home</a>
-            </div>
-            <div class="navbar-end">
+          </span>
+                    <span sec:authorize="isAuthenticated()">
+          <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-small is-responsive">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>
+											Welcome <span sec:authentication="name">name?</span>
+										</span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-info is-outlined is-responsive" th:href="@{/logout}">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>Logout</span>
+              </a>
+            </p>
+          </div>
+        </div>
+        </span>
+                </div>
             </div>
         </div>
     </div>
 </nav>
+<!--END OF HEADER-->
 <br><br><br><br><br><br><br>
 
 <div class="columns is-centered">
@@ -86,20 +147,21 @@
 </div>
 </div>
 <br><br><br><br><br><br><br><br><br>
-<footer class="footer" style="background-color: rgb(204, 221, 255);">
+<br>
+<footer class="footer" style="background-color: rgb(232, 248, 245);">
     <div class="container">
         <div class="content has-text-centered">
             <div class="columns is-mobile is-centered">
                 <div class="field is-grouped is-grouped-multiline">
                     <div class="control">
                         <div class="tags has-addons">
-                            <a class="tag is-link" href="http://localhost:8080/">Web Blog M&C</a>
+                            <a class="tag is-primary" href="http://localhost:8080/">Web Blog M&C</a>
                             <span class="tag is-light">Valerija & Matija</span>
                         </div>
                     </div>
                     <div class="control">
                         <div class="tags has-addons">
-                            <a class="tag is-link" href="https://github.com/3Dbits/WebBlog_Project">Read more:</a>
+                            <a class="tag is-primary" href="https://github.com/3Dbits/WebBlog_Project">Read more:</a>
                             <span class="tag is-light">Source code &nbsp;<i class="fa fa-github"></i></span>
                         </div>
                     </div>

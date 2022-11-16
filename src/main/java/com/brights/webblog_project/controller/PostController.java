@@ -42,7 +42,7 @@ public class PostController {
     public String postNewForm(Model model) {
         model.addAttribute("post", new Post());
 
-        return "addNew2";
+        return "post/addNew";
     }
 
     @PostMapping("/post/new")
@@ -53,7 +53,7 @@ public class PostController {
                               @RequestParam(value = "image", required = false) MultipartFile file,
                               Principal principal) throws IOException {
         if(bindingResult.hasErrors()){
-            return "addNew2";
+            return "/post/addNew";
         }
         if (post.getPublishedAt() == null) {
             post.setPublishedAt(LocalDate.now());

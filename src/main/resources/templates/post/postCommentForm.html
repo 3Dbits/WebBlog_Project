@@ -1,55 +1,92 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add new Post</title>
-    <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
-    <!-- Bulma Version 0.9.0-->
+    <title>Web Blog V&M </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/contact.css">
+    <link rel="stylesheet" type="text/css" href="../css/forum.css">
 </head>
-
-<body>
-<!-- START NAV -->
-<nav class="navbar">
+<body style="background-color: rgb(230, 238, 255);">
+<nav class="navbar is-white topNav" style="background-color: rgb(232, 248, 245);">
     <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="../">
-                <div class="media-left">
-                    <p class="image is-100x100">
-                        <img th:src="@{/logo/logo.png}"/>
-                    </p>
-                </div>
-            </a>
-
-
-            <!--SLOZEN NAV BAR S LOGOUT, HOMEPAGE I USERS-->
-            <span class="navbar-burger burger" data-target="navbarMenu">
-					<span></span>
-					<span></span>
-					<span></span>
-				</span>
-        </div>
-        <div id="navbarMenu" class="navbar-menu">
-            <div class="navbar-end">
-                <a class="navbar-item is-active" th:href="@{/}">Home</a>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">Account</a>
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item is-active" th:href="@{/users}">Profile</a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item is-active" th:href="@{/logout}">Logout</a>
+        <div class="container">
+            <div id="topNav" class="navbar-menu">
+                <div class="navbar-start">
+                    <div class="media-left">
+                        <p class="image is-84x84 navbar-item">
+                            <img th:src="@{/logo/logo.png}"/>
+                        </p>
                     </div>
+                    <span>
+        <a class="navbar-item" th:href="@{/}">Home</a>
+          </span>
+                    <span sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="navbar-item" th:href="@{/users}">Users</a>
+          </span>
+                    <span sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="navbar-item" th:href="@{/posts}">Control</a>
+          </span>
+                </div>
+                <div class="navbar-end">
+        <span sec:authorize="!isAuthenticated()">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-small is-responsive" th:href="@{/user/register}">
+										<span class="icon">
+											<i class="fa fa-user-plus"></i>
+										</span>
+                <span>
+											Register
+										</span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-info is-outlined is-responsive" th:href="@{/login}">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>Login</span>
+              </a>
+            </p>
+          </div>
+        </div>
+          </span>
+                    <span sec:authorize="isAuthenticated()">
+          <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-small is-responsive">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>
+											Welcome <span sec:authentication="name">name?</span>
+										</span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-info is-outlined is-responsive" th:href="@{/logout}">
+										<span class="icon">
+											<i class="fa fa-user"></i>
+										</span>
+                <span>Logout</span>
+              </a>
+            </p>
+          </div>
+        </div>
+        </span>
                 </div>
             </div>
         </div>
     </div>
 </nav>
+<!--END OF HEADER-->
 <!-- END NAV -->
 
 <!--POCETAK ORIGINALNOG KODA-->
@@ -161,7 +198,7 @@
 
 <!--IZMIJENJENA BOJA BUTTONA U ZELENO-->
 <hr>
-<footer class="footer">
+<footer class="footer" style="background-color: rgb(232, 248, 245);">
     <div class="container">
         <div class="content has-text-centered">
             <div class="columns is-mobile is-centered">

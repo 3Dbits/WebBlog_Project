@@ -15,9 +15,18 @@
     <link rel="stylesheet" type="text/css" href="../css/forum.css">
 </head>
 <body style="background-color: rgb(230, 238, 255);">
-<nav class="navbar is-white topNav" style="background-color: rgb(204, 221, 255);">
+<nav class="navbar is-white topNav" style="background-color: rgb(232, 248, 245);">
     <div class="container">
         <div class="navbar-brand">
+            <a class="navbar-item" href="../">
+                <div class="media-left">
+                    <p class="image is-100x100">
+                        <img th:src="@{/logo/logo.png}"/>
+                    </p>
+                </div>
+            </a>
+
+
             <div class="navbar-burger burger" data-target="topNav">
                 <span></span>
                 <span></span>
@@ -47,55 +56,74 @@
                     <input type="text" th:field="*{title}" class="form-control" placeholder="Insert title" required autofocus>
                     <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
                 </p>
+                <div>
+                    <br>
+                </div>
                 <p>
                     <label class="label">Meta Title</label>
                     <input type="text" th:field="*{metaTitle}" class="form-control" placeholder="Insert meta title">
                     <p th:if="${#fields.hasErrors('metaTitle')}" th:errors="*{metaTitle}"></p>
                 </p>
+                <div>
+                    <br>
+                </div>
                 <p>
                     <label class="label">Summary</label>
-                    <input type="textarea" th:field="*{summary}" class="form-control" placeholder="Insert summary" required>
+                    <input type="text" th:field="*{summary}" class="form-control" placeholder="Insert summary" required>
                     <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>
                 </p>
-                    <p>
-                        <input type="checkbox" name="published" checked="checked">
-                        <label class="label">Publish?</label>
-                    </p>
-                    <p>
-                        <label class="label">Published at</label>
-                        <input type="date" th:field="*{publishedAt}" class="form-control">
-                        <p th:if="${#fields.hasErrors('publishedAt')}" th:errors="*{publishedAt}"></p>
-                    </p>
+                <div>
+                    <br>
+                </div>
+
+                <input type="checkbox" name="published" checked="checked">
+
+                <span class="tag is-primary is-light">Publish? </span>
+                <input type="date" th:field="*{publishedAt}" >
+                <p th:if="${#fields.hasErrors('publishedAt')}" th:errors="*{publishedAt}"></p>
+                <div>
+                    <br>
+                </div>
+
+                <div class="field">
+                    <label class="label">Add content</label>
+                    <div class="control">
+
+                <textarea class="textarea is-large" type="text" th:field="*{content}" placeholder="Write content for your blog post" required>
+                    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p></textarea>
+
+                    </div>
+                </div>
+
                 <p>
-                    <label class="label">Content</label>
-                    <input type="textarea" th:field="*{content}" class="form-control" placeholder="Insert content" required>
-                    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
-                </p>
-                <p>
+
                     <label class="label">Upload image</label>
+                    <span class="tag is-primary is-light">
                     <input type="file" name="image" accept="image/*" class="form-control-file">
+                        </span>
                 </p>
                 <br>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Save post</button>
+                <button class="button is-primary is-fullwidth has-text-weight-medium is-medium" type="submit">Save post</button>
             </form>
         </div>
     </div>
 </div>
 <br><br><br><br>
-<footer class="footer" style="background-color: rgb(204, 221, 255);">
+<br>
+<footer class="footer" style="background-color: rgb(232, 248, 245);">
     <div class="container">
         <div class="content has-text-centered">
             <div class="columns is-mobile is-centered">
                 <div class="field is-grouped is-grouped-multiline">
                     <div class="control">
                         <div class="tags has-addons">
-                            <a class="tag is-link" href="http://localhost:8080/">Web Blog M&C</a>
+                            <a class="tag is-primary" href="http://localhost:8080/">Web Blog M&C</a>
                             <span class="tag is-light">Valerija & Matija</span>
                         </div>
                     </div>
                     <div class="control">
                         <div class="tags has-addons">
-                            <a class="tag is-link" href="https://github.com/3Dbits/WebBlog_Project">Read more:</a>
+                            <a class="tag is-primary" href="https://github.com/3Dbits/WebBlog_Project">Read more:</a>
                             <span class="tag is-light">Source code &nbsp;<i class="fa fa-github"></i></span>
                         </div>
                     </div>
