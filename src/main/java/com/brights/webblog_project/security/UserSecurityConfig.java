@@ -34,12 +34,14 @@ public class UserSecurityConfig {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
+                    .loginPage("/login")
                     .defaultSuccessUrl("/")
+                    .failureUrl("/login?error")
 //                    .passwordParameter("password")
 //                    .usernameParameter("username")
                 .and()
-                .logout()
-                    .logoutSuccessUrl("/login");
+                .logout();
+//                    .logoutSuccessUrl("/login?logout");
 
         return http.build();
     }

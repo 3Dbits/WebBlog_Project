@@ -20,7 +20,8 @@ public class UserCredentials {
     private @Getter @Setter String username;
 
     @NotNull
-    @Size(min = 8, message = "Password should contain at least 8 characters")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",
+            message = "Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter and one number")
     private @Getter @Setter String password;
 
     private @Getter @Setter String roles;

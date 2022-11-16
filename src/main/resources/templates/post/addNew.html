@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
@@ -34,49 +33,55 @@
         </div>
     </div>
 </nav>
-<br><br><br><br><br><br>
+<br><br><br>
 <div class="container is-fullheight">
     <div class="columns is-centered">
         <div class="column is-5-desktop" >
 
-            <form class="box" action="#" th:action="@{/user/register}" th:object="${people}"  method="post">
+            <form class="box" action="#" th:action="@{/post/new}" th:object="${post}" enctype="multipart/form-data" method="post">
                 <div class="content is-medium">
-                    <h1>Register</h1>
+                    <h1>Add post</h1>
                 </div>
                 <p>
-                    <label class="label">First name</label>
-                    <input type="text" th:field="*{firstName}" class="form-control" placeholder="Insert first name" required autofocus>
-                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+                    <label class="label">Title</label>
+                    <input type="text" th:field="*{title}" class="form-control" placeholder="Insert title" required autofocus>
+                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
                 </p>
                 <p>
-                    <label class="label">Last name</label>
-                    <input type="text" th:field="*{lastName}" class="form-control" placeholder="Insert last name" required>
-                    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+                    <label class="label">Meta Title</label>
+                    <input type="text" th:field="*{metaTitle}" class="form-control" placeholder="Insert meta title">
+                    <p th:if="${#fields.hasErrors('metaTitle')}" th:errors="*{metaTitle}"></p>
                 </p>
                 <p>
-                    <label class="label">Email</label>
-                    <input type="email" th:field="*{email}" class="form-control" placeholder="e.g. mail@mail.com" required>
-                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                    <label class="label">Summary</label>
+                    <input type="textarea" th:field="*{summary}" class="form-control" placeholder="Insert summary" required>
+                    <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>
                 </p>
-                <div th:object="${newUserCred}">
                     <p>
-                        <label class="label">Username</label>
-                        <input type="text" th:field="*{username}" class="form-control" placeholder="Username" required>
-                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                        <input type="checkbox" name="published" checked="checked">
+                        <label class="label">Publish?</label>
                     </p>
                     <p>
-                        <label class="label">Password</label>
-                        <input type="password" th:field="*{password}" class="form-control" placeholder="Password" required>
-                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                        <label class="label">Published at</label>
+                        <input type="date" th:field="*{publishedAt}" class="form-control">
+                        <p th:if="${#fields.hasErrors('publishedAt')}" th:errors="*{publishedAt}"></p>
                     </p>
-                </div>
+                <p>
+                    <label class="label">Content</label>
+                    <input type="textarea" th:field="*{content}" class="form-control" placeholder="Insert content" required>
+                    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+                </p>
+                <p>
+                    <label class="label">Upload image</label>
+                    <input type="file" name="image" accept="image/*" class="form-control-file">
+                </p>
                 <br>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Save post</button>
             </form>
         </div>
     </div>
-    </div>
-    <br><br><br><br><br><br>
+</div>
+<br><br><br><br>
 <footer class="footer" style="background-color: rgb(204, 221, 255);">
     <div class="container">
         <div class="content has-text-centered">

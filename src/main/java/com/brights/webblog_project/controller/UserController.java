@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class UserController {
@@ -22,6 +23,11 @@ public class UserController {
     private UserCredentialsService userCredentialsService;
     @Autowired
     private PasswordEncoder encoder;
+
+    @GetMapping("/login")
+    public String login(Principal principal){
+        return "login";
+    }
 
     @GetMapping("/user/register")
     public String register (Model model) {

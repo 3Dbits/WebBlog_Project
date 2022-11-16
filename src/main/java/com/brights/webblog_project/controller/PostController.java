@@ -50,7 +50,8 @@ public class PostController {
                               BindingResult bindingResult,
                               Model model,
                               @RequestParam(required = false) boolean published,
-                              @RequestParam(value = "image", required = false) MultipartFile file) throws IOException {
+                              @RequestParam(value = "image", required = false) MultipartFile file,
+                              Principal principal) throws IOException {
         if(bindingResult.hasErrors()){
             return "addNew2";
         }
@@ -65,6 +66,7 @@ public class PostController {
             post.setPathOfPicture("/uploads/" + file.getOriginalFilename());
         }
         post.setPublished(published);
+        post.setUser(userService.getUserById(userCredentialsService.getDetails(principal.getName()).getId()));
 
         postService.savePost(post);
 
