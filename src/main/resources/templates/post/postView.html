@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Post Blog</title>
+    <title th:text="${post.title}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -64,9 +64,30 @@
                         <div  th:text="${postC.content}">
                     </div>
                         <span th:text="'@' + ${postC.user.firstName} + ' ' + ${postC.user.lastName}" style="color:#0000EE;"></span>
-                            <button class="is-right" type="submit">Delete comment</button>
+                        <span th:if="${postC.user.id == userCred.user.id or userCred.roles.equals('ROLE_ADMIN') or userCred.roles.equals('ROLE_MODERATOR')}">
+                            <a th:href="@{/showFormForDelete/{id}(id=${postC.id})}"
+                               th:data-confirm-delete="|Are you sure you want to delete this comment?|"
+                               onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                            <span class="tag is-primary is-light is-right">Delete comment</span>
+                                </a>
+                            </span>
                         <br>
                     </span>
+                    <p class="title">Write new comment</p>
+                    <form action="#"
+                          th:action="@{/post/comment(idpost = ${post.id}, username = ${userCred.username})}"
+                          th:object="${newComment}"
+                          method="post">
+                        <input type="text" th:field="*{content}" class="form-control" placeholder="Insert comment">
+                        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+                        <input type="hidden" th:field="*{id}" th:value="0">
+
+                        <div class="control">
+                            <button class="button is-primary">Submit</button>
+                        </div>
+
+
+                    </form>
                 </div>
             </article>
         </div>
