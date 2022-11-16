@@ -97,35 +97,50 @@
       <a class="button is-primary is-block is-alt is-small is-responsive" href="/post/new">New Post</a>
         </span>
     </div>
+<!---->
+<!--    <span th:unless="${post.pathOfPicture == null}">-->
+<!--                <div class="media-left">-->
+<!--                  <figure class="image is-64x64">-->
+<!--                    <img th:src="@{${post.pathOfPicture}}" alt="img"/>-->
+<!--                  </figure>-->
+<!--                </div>-->
+<!--                  </span>-->
+<!--    <h4><a ></a></h4>-->
+<!--    th:href="@{/post/{id}(id=${post.id})}"-->
+<!--    <a href="/" ></a> published this on <span th:text="${post.publishedAt}"></span> &nbsp;-->
+<!--    <div class="media-right">-->
+<!--      <span class="has-text-grey-light"><i class="fa fa-comments"></i> <span th:text="${post.postComment.size()}"></span></span>-->
+<!--    </div>-->
+<!--    -->
     <div class="column is-9">
-      <div class="box content">
         <span th:each="post : ${postList}">
-          <article class="post">
-            <h4><a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}+': '+${post.summary}"></a></h4>
-            <div class="media">
-              <span th:unless="${post.pathOfPicture == null}">
-              <div class="media-left">
-                <p class="image is-32x32">
-                  <img th:src="@{${post.pathOfPicture}}"/>
-                </p>
-              </div>
-                </span>
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                    <a href="/" th:text="${post.user.getFirstName()+' '+post.user.getLastName()}"></a> published this on <span th:text="${post.publishedAt}"></span> &nbsp;
-                  </p>
-                </div>
-              </div>
-              <div class="media-right">
-                <span class="has-text-grey-light"><i class="fa fa-comments"></i> <span th:text="${post.postComment.size()}"></span></span>
-              </div>
-            </div>
-          </article> <br>
+<!--          <div class="box" style="background-color: rgb(230, 255, 230);">-->
+  <div class="box">
+    <a th:href="@{/post/{id}(id=${post.id})}" style="color:#252525;">
+  <article class="media">
+    <div class="media-left" th:unless="${post.pathOfPicture == null}">
+      <figure class="image is-64x64">
+        <img th:src="@{${post.pathOfPicture}}" alt="Image">
+      </figure>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong th:text="${post.title}"></strong> <small style="color:#0000EE;">@</small><small style="color:#0000EE;" th:text="${post.user.getFirstName()+' '+post.user.getLastName()}"></small> <small>published this on</small> <small th:text="${post.publishedAt}"></small>
+          <br>
+          <span th:text="${post.summary}"></span>
+        </p>
+      </div>
+    </div>
+  </article>
+      </a>
+</div>
+          <div style="line-height:0%;">
+    <br>
+</div>
         </span>
       </div>
     </div>
-  </div>
 </section>
 <br>
 <footer class="footer" style="background-color: rgb(204, 221, 255);">
