@@ -42,7 +42,7 @@ public class PostController {
     public String postNewForm(Model model) {
         model.addAttribute("post", new Post());
 
-        return "addNew2";
+        return "/post/addNew";
     }
 
     @PostMapping("/post/new")
@@ -53,7 +53,7 @@ public class PostController {
                               @RequestParam(value = "image", required = false) MultipartFile file,
                               Principal principal) throws IOException {
         if(bindingResult.hasErrors()){
-            return "addNew2";
+            return "/post/addNew";
         }
         if (post.getPublishedAt() == null) {
             post.setPublishedAt(LocalDate.now());
@@ -96,7 +96,7 @@ public class PostController {
     //kreiramo novi komentar -- spojen na post/Comment
    // njezin submit bi trebao pokrenuti akciju za postMapping post/comment
     @GetMapping("/showCommentForUpdate/{id}") //ovaj id je id od POSTa
-    public String commentForm (@PathVariable(value = "id") long id, Model model, Principal principal){
+    public String commentForm(@PathVariable(value = "id") long id, Model model, Principal principal){
 
         Post post = postService.getPostById(id);
         model.addAttribute("post", post);
@@ -108,10 +108,14 @@ public class PostController {
 
 //vidjeti post po njegovom IDu i sve njegove komentare
     @GetMapping("/post/{id}")
-    public String viewPost(Model model, @PathVariable(value = "id")long id) {
+    public String viewPost(Model model,
+                           @PathVariable(value = "id")long id,
+                           Principal principal) {
 
         model.addAttribute("post", postService.getPostById(id));
         model.addAttribute("postComment", postCommentService.getAllPostCommentsByPostId(id));
+        model.addAttribute("userCred", userCredentialsService.getDetails(principal.getName()));
+        model.addAttribute("newComment", new PostComment());
         return "/post/postView";
     }
 
@@ -120,22 +124,34 @@ public class PostController {
 @GetMapping("/showFormForDelete/{id}")
 public String deleteComment(@Valid @ModelAttribute PostComment postComment,
                             BindingResult bindingComment,
-                            Principal principal ){
+                            Principal principal ) {
 
-    if ( principal.getName()==null ||
-            ( userCredentialsService.getUserCredentialsRoles(principal.getName()).equals("ROLE_USER")) &&
-            !principal.getName().equals(userCredentialsService.GetByUser(postComment.getUser()))) {
+    if (principal.getName() == null ||
+            (userCredentialsService.getUserCredentialsRoles(principal.getName()).equals("ROLE_USER")) &&
+                    !principal.getName().equals(userCredentialsService.GetByUser(postComment.getUser()).getUsername())) {
         System.err.println("Forbidden role , not able to delete");
         return "redirect:/";
 
-    }
-     else {
-         long number = postCommentService.getPostCommentById(postComment.getId()).getPost().getId();
-         postCommentService.deletePostCommentById(postComment.getId());
-        return "redirect:/post/"  + number;
+    } else {
+        long number = postCommentService.getPostCommentById(postComment.getId()).getPost().getId();
+        postCommentService.deletePostCommentById(postComment.getId());
+        return "redirect:/post/" + number;
     }
 }
 
+    @GetMapping("/showFormForPostDelete/{id}")
+    public String deletePost(@ModelAttribute Post post,
+                             @PathVariable(value = "id") long id){
+
+            postService.deletePostById(id);
+            return "redirect:/";
+    }
+
+    @GetMapping("/postList")
+    public String postList(Model model){
+        model.addAttribute("postList", postService.getAllPosts());
+        return "/post/listPost";
+    }
 
 ////Update Post
 
@@ -162,7 +178,6 @@ public String deleteComment(@Valid @ModelAttribute PostComment postComment,
         postOld.setTitle(post.getTitle());
         postOld.setMetaTitle(post.getMetaTitle());
         postOld.setSummary(post.getSummary());
-        postOld.setPublished(post.isPublished());
         postOld.setContent(post.getContent());
         postService.savePost(postOld);
 

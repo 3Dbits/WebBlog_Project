@@ -33,7 +33,7 @@
         <a class="navbar-item" th:href="@{/users}">Users</a>
           </span>
         <span sec:authorize="hasRole('ROLE_ADMIN')">
-        <a class="navbar-item" th:href="@{/posts}">Control</a>
+        <a class="navbar-item" th:href="@{/postList}">Control</a>
           </span>
       </div>
       <div class="navbar-end">
