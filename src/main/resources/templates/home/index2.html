@@ -93,7 +93,9 @@
   <div class="columns">
     <div class="column is-2">
       <span sec:authorize="isAuthenticated()">
+        <span th:if="${userrr.roles.equals('ROLE_ADMIN')}">
       <a class="button is-primary is-block is-alt is-small is-responsive" href="/post/new">New Post</a>
+          </span>
         </span>
     </div>
 <!---->
@@ -128,9 +130,13 @@
           <strong th:text="${post.title}"></strong> <small style="color:#0000EE;">@</small><small style="color:#0000EE;" th:text="${post.user.getFirstName()+' '+post.user.getLastName()}"></small> <small>published this on</small> <small th:text="${post.publishedAt}"></small>
           <br>
           <span th:text="${post.summary}"></span>
+
+          </div>
         </p>
-      </div>
     </div>
+    <div class="media-right">
+        <span class="has-text-grey-light"><i class="fa fa-comments"></i><span th:text="${post.postComment.size()}"></span></span>
+      </div>
   </article>
       </a>
 </div>

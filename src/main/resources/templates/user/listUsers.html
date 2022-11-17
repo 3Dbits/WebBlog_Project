@@ -29,7 +29,7 @@
         <a class="navbar-item" th:href="@{/users}">Users</a>
           </span>
                     <span sec:authorize="hasRole('ROLE_ADMIN')">
-        <a class="navbar-item" th:href="@{/posts}">Control</a>
+        <a class="navbar-item" th:href="@{/postList}">Control</a>
           </span>
                 </div>
                 <div class="navbar-end">
@@ -122,8 +122,8 @@
         <td>
             <span th:each="userCred : ${userCredList}">
                 <span th:if="${userCred.user.id == user.id}">
-                    <span th:if="${userCred.enabled == 0}">No</span>
-                    <span th:unless="${userCred.enabled == 0}">Yes</span>
+                    <span th:if="${userCred.enabled}">No</span>
+                    <span th:unless="${userCred.enabled}">Yes</span>
                 </span>
                 </span>
         </td>

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.security.Principal;
+
 @Controller
 public class HomeController {
 
@@ -27,10 +29,19 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String homepage(Model model) {
+    public String homepage(Model model,
+                           Principal principal) {
         model.addAttribute("postList", postService.getAllPostsReverseForIndexPage());
         model.addAttribute("commentList", postCommentService.getAllPostComments());
+        if(principal != null) {
+            model.addAttribute("userrr", userCredentialsService.getDetails(principal.getName()));
+        }
 
         return "/home/index2";
+    }
+
+    @GetMapping("/end")
+    public String end() {
+        return "/home/end";
     }
 }

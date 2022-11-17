@@ -54,7 +54,7 @@ public class UserController {
         } catch (Exception e) {
             return "/user/newRegister";
         }
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/users")

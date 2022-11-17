@@ -128,7 +128,7 @@ public String deleteComment(@Valid @ModelAttribute PostComment postComment,
 
     if (principal.getName() == null ||
             (userCredentialsService.getUserCredentialsRoles(principal.getName()).equals("ROLE_USER")) &&
-                    !principal.getName().equals(userCredentialsService.GetByUser(postComment.getUser()).getUsername())) {
+                    !principal.getName().equals(userCredentialsService.GetByUser(postComment.getUser()))) {
         System.err.println("Forbidden role , not able to delete");
         return "redirect:/";
 

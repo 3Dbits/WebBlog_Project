@@ -78,6 +78,15 @@
 <!--                        <input type="text" th:field="*{roles}" class="form-control" placeholder="e.g. ROLE_USER" required>-->
 <!--                    <p th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></p>-->
                     </p>
+                    <p>
+                        <label class="label">Enabled</label>
+                    <div class="select">
+                        <select th:field="*{enabled}">
+                            <option value="0">Yes</option>
+                            <option value="1">No</option>
+                        </select>
+                    </div>
+                    </p>
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{password}">
                     <input type="hidden" th:field="*{user}">
